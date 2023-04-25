@@ -31,6 +31,7 @@ az ad app federated-credential create --id $appObjectID --parameters '\l\temp\cr
 
 az ad app federated-credential delete --federated-credential-id fbf54d58-e3bc-409d-900b-2686c769dfea --id $appObjectID
 
+# Below not used, fixed the above instead
 $aadAppName2="peterlil-DevOpsWithGitHub2"
 az ad sp create-for-rbac -n $aadAppName2 --role contributor --scopes "/subscriptions/$subscriptionId"
 # Response:
@@ -43,3 +44,21 @@ az ad sp create-for-rbac -n $aadAppName2 --role contributor --scopes "/subscript
 
 ```
 
+First attempt to deploy bicep
+```
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        template: ./Bicep-Templates/main.bicep
+```
+
+Failed on scope. New attempt:
+```
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        template: ./Bicep-Templates/main.bicep
+        scope: subscription
+```

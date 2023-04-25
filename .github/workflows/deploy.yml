@@ -25,3 +25,4 @@ jobs:
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         template: ./Bicep-Templates/main.bicep
+        scope: subscription

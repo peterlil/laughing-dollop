@@ -5,8 +5,8 @@ on:
 permissions:
       id-token: write
       contents: read
-#env:
-#  targetEnv: test
+env:
+  targetEnv: rambodevops-test
 
 jobs:
   build-and-deploy:
@@ -29,3 +29,4 @@ jobs:
         template: ./Bicep-Templates/main.bicep
         scope: subscription
         region: westeurope
+        parameters: webAppName=${{ env.targetEnv }}

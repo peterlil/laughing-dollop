@@ -24,6 +24,19 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
+resource hostingPlan 'Microsoft.Web/serverfarms@2022-09-01' = {
+  sku: {
+    tier: first(skip(split(sku, ' '), 1))
+    name: first(split(sku, ' '))
+  }
+  kind: 'linux'
+  name: hostingPlanName
+  location: location
+  properties: {
+    reserved: true
+  }
+}
+
 resource webApp 'Microsoft.Web/sites@2022-09-01' = {
   name: webAppName
   location: location
@@ -59,13 +72,8 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
       appCommandLine: startupCommand
       linuxFxVersion: 'DOCKER|${registry.properties.loginServer}/${imageName}'
     }
-    serverFarmId: '/subscriptions/${subscription().subscriptionId}/resourcegroups/${resourceGroup().name}/providers/Microsoft.Web/serverfarms/${hostingPlanName}'
-    hostingEnvironment: ''
+    serverFarmId: hostingPlan.id
   }
-  dependsOn: [
-    hostingPlan
-
-  ]
 }
 
 resource registry 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
@@ -79,21 +87,6 @@ resource registry 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
   }
 }
 
-resource hostingPlan 'Microsoft.Web/serverfarms@2022-09-01' = {
-  sku: {
-    tier: first(skip(split(sku, ' '), 1))
-    name: first(split(sku, ' '))
-  }
-  kind: 'linux'
-  name: hostingPlanName
-  location: location
-  properties: {
-    name: hostingPlanName
-    workerSizeId: '0'
-    reserved: true
-    numberOfWorkers: '1'
-    hostingEnvironment: ''
-  }
-}
+
 
 

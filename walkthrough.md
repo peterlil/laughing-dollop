@@ -23,13 +23,13 @@ az ad app federated-credential create --id $appObjectID --parameters '\l\temp\cr
     "api://AzureADTokenExchange"
   ],
   "description": "Testing",
-  "id": "eb6e1890-6977-479b-bb19-50a6d9698453",
+  "id": "fbf54d58-e3bc-409d-900b-2686c769dfea",
   "issuer": "https://token.actions.githubusercontent.com/",
   "name": "peterlil-DevOpsWithGitHub-creds",
-  "subject": "repo:octo-org/octo-repo:environment:Production"
+  "subject": "repo:peterlil/laughing-dollop:ref:refs/heads/main"
 }
 
-az ad app federated-credential delete --federated-credential-id 1f74b1e5-ec8f-4e44-9242-ac8a19a261a4 --id $appObjectID
+az ad app federated-credential delete --federated-credential-id eb6e1890-6977-479b-bb19-50a6d9698453 --id $appObjectID
 
 $aadAppName2="peterlil-DevOpsWithGitHub2"
 az ad sp create-for-rbac -n $aadAppName2 --role contributor --scopes "/subscriptions/$subscriptionId"

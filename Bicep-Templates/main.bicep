@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 
 param location string = 'westeurope'
-param prefix string = 'duck'
+param prefix string = 'rambo'
 
 param webAppName string = '${prefix}devops-dev'
 param hostingPlanName string = '${prefix}devops-asp'

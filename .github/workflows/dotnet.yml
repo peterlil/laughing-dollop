@@ -11,6 +11,12 @@ on:
     branches: [ "main" ]
     paths: [ "Application/**" ]
 
+env:
+  registryName: "rambodevopsreg.azurecr.io"
+  repositoryName: "wth/dotnetcoreapp"
+  dockerFolderPath: "Application/src/RazorPagesTestSample"
+  tag: ${{ github.run_number }}
+
 jobs:
   build:
 
@@ -28,3 +34,14 @@ jobs:
       run: dotnet build Application/src/RazorPagesTestSample/RazorPagesTestSample.csproj --no-restore
     - name: Test
       run: dotnet test Application/tests/RazorPagesTestSample.Tests/RazorPagesTestSample.Tests.sln --no-build --verbosity normal
+
+  build_container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker login
+        run: docker login $registryName -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
+      - name: Docker build
+        run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+      - name: Docker push
+        run: docker push $registryName/$repositoryName:$tag
+        

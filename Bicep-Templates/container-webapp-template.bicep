@@ -45,7 +45,6 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
     'hidden link: /app-insights-resource-id': appInsights.id
   }
   properties: {
-    name: webAppName
     siteConfig: {
       appSettings: [
         {
@@ -83,7 +82,7 @@ resource registry 'Microsoft.ContainerRegistry/registries@2022-12-01' = {
   name: registryName
   location: location
   properties: {
-    adminUserEnabled: 'true'
+    adminUserEnabled: true
   }
 }
 

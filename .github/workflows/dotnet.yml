@@ -38,13 +38,11 @@ jobs:
   build_container:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Docker login
         run: docker login $registryName -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
       - name: Docker build
-        run: |
-          pwd
-          ls -al ..
-          docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
+        run: docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
       - name: Docker push
         run: docker push $registryName/$repositoryName:$tag
         

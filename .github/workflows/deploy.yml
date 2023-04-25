@@ -5,6 +5,8 @@ on:
 permissions:
       id-token: write
       contents: read
+#env:
+#  targetEnv: test
 
 jobs:
   build-and-deploy:

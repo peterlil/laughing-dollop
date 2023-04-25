@@ -6,7 +6,7 @@ permissions:
       id-token: write
       contents: read
 env:
-  targetEnv: rambodevops-test
+  targetEnv: rambodevops-prod
 
 jobs:
   build-and-deploy:

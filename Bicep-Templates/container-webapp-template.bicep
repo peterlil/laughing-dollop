@@ -11,11 +11,25 @@ param registrySku string = 'Standard'
 param startupCommand string = ''
 
 
+resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
+  name: appInsightsName
+  location: location
+  kind: 'web'
+  // tags: {
+  //   'hidden-link:${resourceGroup().id}/providers/Microsoft.Web/sites/${webAppName}': 'Resource'
+  // }
+  properties: {
+    Application_Type: 'web'
+    Request_Source: 'AzureTfsExtensionAzureProject'
+  }
+}
+
 resource webApp 'Microsoft.Web/sites@2022-09-01' = {
   name: webAppName
   location: location
   tags: {
     'hidden-related:/subscriptions/${subscription().subscriptionId}/resourcegroups/${resourceGroup().name}/providers/Microsoft.Web/serverfarms/${hostingPlanName}': 'empty'
+    'hidden link: /app-insights-resource-id': appInsights.id
   }
   properties: {
     name: webAppName
@@ -82,14 +96,4 @@ resource hostingPlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   }
 }
 
-resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
-  name: appInsightsName
-  location: location
-  tags: {
-    'hidden-link:${resourceGroup().id}/providers/Microsoft.Web/sites/${webAppName}': 'Resource'
-  }
-  properties: {
-    applicationId: webAppName
-    Request_Source: 'AzureTfsExtensionAzureProject'
-  }
-}
+

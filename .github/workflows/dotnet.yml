@@ -11,6 +11,10 @@ on:
     branches: [ "main" ]
     paths: [ "Application/**" ]
 
+permissions:
+      id-token: write
+      contents: read
+
 env:
   registryName: "rambodevopsreg.azurecr.io"
   repositoryName: "wth/dotnetcoreapp"

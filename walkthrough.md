@@ -14,7 +14,7 @@ $assigneeObjectId = $aadSp.id
 az role assignment create --role contributor --subscription $subscriptionId --assignee-object-id  $assigneeObjectId --assignee-principal-type ServicePrincipal --scope /subscriptions/$subscriptionId
 
 $appObjectID = $aadAppPs.id
-az ad app federated-credential create --id $appObjectID --parameters '\l\temp\credential.json' 
+az ad app federated-credential create --id $appObjectID --parameters '\l\temp\credential.json'
 
 #Result:
 {
@@ -23,10 +23,22 @@ az ad app federated-credential create --id $appObjectID --parameters '\l\temp\cr
     "api://AzureADTokenExchange"
   ],
   "description": "Testing",
-  "id": "1f74b1e5-ec8f-4e44-9242-ac8a19a261a4",
-  "issuer": "https://token.actions.githubusercontent.com",
+  "id": "eb6e1890-6977-479b-bb19-50a6d9698453",
+  "issuer": "https://token.actions.githubusercontent.com/",
   "name": "peterlil-DevOpsWithGitHub-creds",
   "subject": "repo:octo-org/octo-repo:environment:Production"
+}
+
+az ad app federated-credential delete --federated-credential-id 1f74b1e5-ec8f-4e44-9242-ac8a19a261a4 --id $appObjectID
+
+$aadAppName2="peterlil-DevOpsWithGitHub2"
+az ad sp create-for-rbac -n $aadAppName2 --role contributor --scopes "/subscriptions/$subscriptionId"
+# Response:
+{
+  "appId": "9c70cde0-7819-4ff6-93fe-3d4ac2937a0a",
+  "displayName": "peterlil-DevOpsWithGitHub2",
+  "password": "FfE8Q~pU9iVMdLv5pG1wvrtmAPW9W4iPX5.zva3o",
+  "tenant": "16b3c013-d300-468d-ac64-7eda0820b6d3"
 }
 
 ```

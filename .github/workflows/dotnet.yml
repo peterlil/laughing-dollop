@@ -43,6 +43,7 @@ jobs:
       - name: Docker build
         run: |
           pwd
+          ls -al
           docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
       - name: Docker push
         run: docker push $registryName/$repositoryName:$tag

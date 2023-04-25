@@ -1,6 +1,9 @@
-name: deploy
+# hej hopp
+
+name: deployer
+
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 permissions:
       id-token: write

@@ -62,3 +62,14 @@ Failed on scope. New attempt:
         template: ./Bicep-Templates/main.bicep
         scope: subscription
 ```
+
+Failed on region. New attempt:
+```
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        template: ./Bicep-Templates/main.bicep
+        scope: subscription
+        region: westeurope
+```

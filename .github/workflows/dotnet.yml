@@ -11,6 +11,12 @@ on:
     branches: [ "main" ]
     paths: [ "Application/**" ]
 
+env:
+  registryName: "rambodevopsreg.azurecr.io"
+  repositoryName: "wth/dotnetcoreapp"
+  dockerFolderPath: "Application/src/RazorPagesTestSample"
+  tag: ${{ github.run_number }}
+
 jobs:
   build:
 

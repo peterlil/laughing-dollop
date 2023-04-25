@@ -14,7 +14,7 @@ on:
 env:
   registryName: "rambodevopsreg.azurecr.io"
   repositoryName: "wth/dotnetcoreapp"
-  dockerFolderPath: "Application/src/RazorPagesTestSample"
+  dockerFolderPath: "../Application/src/RazorPagesTestSample"
   tag: ${{ github.run_number }}
 
 jobs:
@@ -43,7 +43,7 @@ jobs:
       - name: Docker build
         run: |
           pwd
-          ls -al
+          ls -al ..
           docker build -t $registryName/$repositoryName:$tag --build-arg build_version=$tag $dockerFolderPath
       - name: Docker push
         run: docker push $registryName/$repositoryName:$tag

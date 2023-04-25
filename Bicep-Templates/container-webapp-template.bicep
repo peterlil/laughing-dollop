@@ -65,7 +65,11 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
         }
         {
           name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
-          value: reference(appInsights.id, '2015-05-01').InstrumentationKey
+          value: appInsights.properties.InstrumentationKey
+        }
+        {
+          name:'APPLICATIONINSIGHTS_CONNECTION_STRING'
+          value:appInsights.properties.ConnectionString
         }
       ]
       appCommandLine: startupCommand

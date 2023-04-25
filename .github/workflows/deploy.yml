@@ -20,8 +20,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: 'Run Azure CLI commands'
-      run: |
-          az account show
-          az group list
-          pwd 
+    - name: deploy
+      uses: azure/arm-deploy@v1
+      with:
+        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+        template: ./Bicep-Templates/main.bicep
